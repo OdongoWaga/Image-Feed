@@ -12,7 +12,7 @@ const AuthorRow = ({fullname, linkText, onPressLinkText }) => {
         <View style={styles.container}>
             <Avatar
             size={35}
-            intials={getInitials(fullname)}
+            initials={getInitials(fullname)}
             backgroundColor={getAvatarColor(fullname)}/>
 
             <Text style={styles.text} numberOfLines={1}>
@@ -27,7 +27,7 @@ const AuthorRow = ({fullname, linkText, onPressLinkText }) => {
     )
 }
 
-AuthorRow.PropTypes ={
+AuthorRow.propTypes ={
     fullname:PropTypes.string.isRequired,
     fullname:PropTypes.string.isRequired,
     onPressLinkText:PropTypes.func.isRequired
