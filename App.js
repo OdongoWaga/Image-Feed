@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Avatar from './components/Avatar';
 import Constants from 'expo-constants';
 
 
-export default function App() {
+export default class App extends React.Component {
+  render(){
   return (
     <View style={styles.container}>
       <Avatar initials={'FL'} size={35} backgroundColor={'teal'} />
     </View>
   );
+}
 }
 
 const styles = StyleSheet.create({
