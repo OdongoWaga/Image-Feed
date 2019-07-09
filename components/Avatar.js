@@ -12,7 +12,8 @@ export default function Avatar({size, backgroundColor, initials }) {
     }
     return(
 
-    <View style={style} />
+    <View style={[styles.container, style]} />
+    <Text style={styles.text}>{initials} </Text>
     )
 }
 
@@ -21,3 +22,13 @@ Avatar.propTypes ={
   size: PropTypes.number.isRequired,
   backgroundColor: ColorPropType.isRequired,
 }
+
+const styles = StyleSheet.create({
+    container:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    },
+    text:{
+        color:'white',
+    }
+})
