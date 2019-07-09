@@ -1,6 +1,7 @@
 import { ColorPropType, View, Text, StyleSheet } from 'react-native';
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Constants from 'expo-constants'
 
 
 export default function Avatar({size, backgroundColor, initials }) {
@@ -12,8 +13,9 @@ export default function Avatar({size, backgroundColor, initials }) {
     }
     return(
 
-    <View style={[styles.container, style]} />
+    <View style={[styles.container, style]} >
     <Text style={styles.text}>{initials} </Text>
+    </View>
     )
 }
 
@@ -25,8 +27,9 @@ Avatar.propTypes ={
 
 const styles = StyleSheet.create({
     container:{
-    alignItems: 'center',
-    justifyContent: 'center',
+        marginTop: Constants.statusBarHeight,
+        flex:1,
+        backgroundColor: '#fff'
     },
     text:{
         color:'white',
