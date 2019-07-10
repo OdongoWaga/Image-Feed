@@ -1,46 +1,52 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, FlatList } from 'react-native'
+import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import {getImageFromId} from '../utils/api';
+import React from 'react';
+
+import { getImageFromId } from '../utils/api';
 import Card from './Card';
 
-const keyExtractor = ({id}) => id.toString();
+const keyExtractor = ({ id }) => id.toString();
 
-[
-    {id: 0, author: "Bob Ross"},
-    {id: 1, author: "Chuck Noris"},
-]
+export default class CardList extends React.Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    commentsForItem: PropTypes.objectOf(
+      PropTypes.arrayOf(PropTypes.string),
+    ).isRequired,
+    onPressComments: PropTypes.func.isRequired,
+  };
 
-export default class CardList extends Component {
+  renderItem = ({ item: { id, author } }) => {
+    const { commentsForItem, onPressComments } = this.props;
+    const comments = commentsForItem[id];
 
-    static propTypes = {
-        items: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            author: PropTypes.string.isRequired,
-          }),
-        ).isRequired,
-      };
+    return (
+      <Card
+        fullname={author}
+        image={{
+          uri: getImageFromId(id),
+        }}
+        linkText={`${comments ? comments.length : 0} Comments`}
+        onPressLinkText={() => onPressComments(id)}
+      />
+    );
+  };
 
-      renderItem = ({item: {id, author}}) => (
-          <Card
-          fullname={author}
-          image ={{
-              uri: getImageFromId(id)
-          }}
-          />
-      )
+  render() {
+    const { items, commentsForItem } = this.props;
 
-    render() {
-        const {items} = this.props;
-        return (
-            <FlatList
-            data={items}
-            renderItem={this.renderItem}
-            keyExtractor={keyExtractor}
-            />
-        )
-    }
+    return (
+      <FlatList
+        data={items}
+        extraData={commentsForItem}
+        renderItem={this.renderItem}
+        keyExtractor={keyExtractor}
+      />
+    );
+  }
 }
-
-const styles = StyleSheet.create({})
